@@ -1,4 +1,4 @@
-#### Run Dashboard install library
+#### Install library
 ```bash
 pip install -r requirements.txt
 ```
