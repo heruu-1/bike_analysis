@@ -67,7 +67,7 @@ def create_hour_tren_df(df):
     return hour_tren_df
 
 
-hour_df = pd.read_csv("Dashboard/bike_clean_hour1.csv")
+hour_df = pd.read_csv("bike_clean_hour1.csv")
 hour_df['dteday'] = pd.to_datetime(hour_df['dteday'])
 
 min_date = hour_df["dteday"].min()   #Membuat filter
