@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
+import os
 from altair import value
 from pygments.unistring import xid_start
 
@@ -67,7 +68,11 @@ def create_hour_tren_df(df):
     return hour_tren_df
 
 
-hour_df = pd.read_csv("bike_clean_hour1.csv")
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
+# Membaca data CSV dengan path relatif
+hour_df = pd.read_csv(f"{script_dir}/bike_clean_hour1.csv")
+
 hour_df['dteday'] = pd.to_datetime(hour_df['dteday'])
 
 min_date = hour_df["dteday"].min()   #Membuat filter
