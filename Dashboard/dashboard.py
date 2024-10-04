@@ -82,16 +82,22 @@ st.sidebar.subheader("Menu Navigasi")
 with st.sidebar:
     st.image("https://st2.depositphotos.com/57698706/50500/v/450/depositphotos_505000244-stock-illustration-orange-bike-in-front-of.jpg",width=200)
     try:
-        start_date, end_date = st.date_input(
+        date_input = st.date_input(
             label='Waktu',
             min_value=min_date,
             max_value=max_date,
-            value=[min_date, max_date]
+            value=(min_date, max_date)
         )
-    except ValueError:
-        st.error("Mohon pilih kedua tanggal (start date dan end date).")
-        start_date = min_date
-        end_date = max_date
+
+        if len(date_input) == 2:
+            start_date, end_date = date_input
+        else:
+            st.warning("Mohon pilih rentang tanggal (start date dan end date).")
+            start_date, end_date = min_date, max_date
+    except Exception as e:
+        st.error(f"Terjadi kesalahan: {str(e)}")
+        st.warning("Menggunakan rentang tanggal default.")
+        start_date, end_date = min_date, max_date
 
 main_df = hour_df[(hour_df["dteday"] >= str(start_date)) &
                 (hour_df["dteday"] <= str(end_date))]
