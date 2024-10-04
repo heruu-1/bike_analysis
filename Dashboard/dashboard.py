@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 import os
-from altair import value
-from pygments.unistring import xid_start
 
 sns.set(style='dark')
 
@@ -83,11 +81,17 @@ max_date = hour_df["dteday"].max()
 st.sidebar.subheader("Menu Navigasi")
 with st.sidebar:
     st.image("https://st2.depositphotos.com/57698706/50500/v/450/depositphotos_505000244-stock-illustration-orange-bike-in-front-of.jpg",width=200)
-    start_date, end_date = st.date_input(
-        label='Waktu', min_value=min_date,
-        max_value=max_date,
-        value=[min_date, max_date]
-    )
+    try:
+        start_date, end_date = st.date_input(
+            label='Waktu',
+            min_value=min_date,
+            max_value=max_date,
+            value=[min_date, max_date]
+        )
+    except ValueError:
+        st.error("Mohon pilih kedua tanggal (start date dan end date).")
+        start_date = min_date
+        end_date = max_date
 
 main_df = hour_df[(hour_df["dteday"] >= str(start_date)) &
                 (hour_df["dteday"] <= str(end_date))]
